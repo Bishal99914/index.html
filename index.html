@@ -40,6 +40,19 @@
   <script>
     let tasks = [];
 
+    // Load from localStorage
+    function loadTasks() {
+      const storedTasks = localStorage.getItem('todoTasks');
+      if (storedTasks) {
+        tasks = JSON.parse(storedTasks);
+      }
+    }
+
+    // Save to localStorage
+    function saveTasks() {
+      localStorage.setItem('todoTasks', JSON.stringify(tasks));
+    }
+
     function renderTasks() {
       const taskList = document.getElementById('taskList');
       taskList.innerHTML = '';
@@ -81,6 +94,8 @@
         li.appendChild(btnGroup);
         taskList.appendChild(li);
       });
+
+      saveTasks(); // Save whenever tasks are rendered
     }
 
     function addTask() {
@@ -111,6 +126,8 @@
       }
     }
 
+    // Initial load
+    loadTasks();
     renderTasks();
   </script>
 </body>
